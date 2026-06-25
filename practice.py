@@ -9,7 +9,7 @@ import pickle
 def load_assets():
     model = tf.keras.models.load_model('colab_titanic_ann_model.h5')
     with open('scaler.pkl', 'rb') as file:
-        scaler = pickle.bind(file) if hasattr(pickle, 'bind') else pickle.load(file)
+        scaler = pickle.load(file)
     with open('onehot_encoder.pkl', 'rb') as file:
         onehot_encoder = pickle.load(file)
     return model, scaler, onehot_encoder
@@ -23,10 +23,10 @@ st.write('Provide input details to check survival probability.')
 
 pclass=st.slider('Enter Passenger Class', 1,3,value=3)
 sex=st.selectbox('Enter the sex',['male','female'])
-sibsp=st.number_input('Enter the number of Siblings/Spouse',1,10,value=0)
-parch=st.number_input('Enter the number of Parents/Children',1,10,value=0)
+sibsp=st.number_input('Enter the number of Siblings/Spouse',0,10,value=1)
+parch=st.number_input('Enter the number of Parents/Children',0,10,value=1)
 fare=st.number_input('Enter the Fare paid',0.00,500.00,value=50.00)
-embarked=st.selectbox('Enter the Embarked Station', ['Cherobogh', 'Southampton','Queenstown'])
+embarked=st.selectbox('Enter the Embarked Station', ['Cherbourg', 'Southampton','Queenstown'])
 
 if st.button("Predict Survival"):
 # Step A: Scale your numerical features using your loaded scaler 
